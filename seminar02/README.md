@@ -66,6 +66,21 @@ Vlan    Mac Address       Type        Ports
 Switch#
 ```
 
+Вывод таблицы ARP с роутера r1
+
+```sudoRouter>en
+Router>enable
+Router#show ARP
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  10.0.0.1                -   00E0.B0BD.E001  ARPA   FastEthernet0/0
+Internet  10.0.0.10               21  0001.C76B.0BC6  ARPA   FastEthernet0/0
+Internet  10.0.0.11               34  00D0.9796.2A1D  ARPA   FastEthernet0/0
+Internet  192.168.0.1             34  0002.17C1.ED01  ARPA   FastEthernet0/1
+Internet  192.168.0.2             -   00E0.B0BD.E002  ARPA   FastEthernet0/1
+Router#
+Router#
+```
+
 ## 4. Настроить loopback интерфейсы.
 
 Это виртуальные програмные интерфейсы, к ним нельзя подключать реальные IP-сети
