@@ -28,6 +28,8 @@ AABBCCDDEEFFGGHHIIJJKKLLMMNNOOPPQQRRSSTTUUVVWWXXYYZZ00112233445566778899
 
 **http://wm-site.ru/login/**
 
+![masha](./img/masha.png)
+
 Перехватите их в Wiresharke, построив фильтр.
 
 Сначала в Wiresharke надо включить захват, кнопка с плавником "Start capturing packets".
