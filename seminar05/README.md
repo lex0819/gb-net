@@ -48,5 +48,66 @@ http.request.method == POST
 
 ## На сайте https://launchpad.net/ubuntu/+archivemirrors
 
-представлены зеркала с образами Убунту по странам. Скачайте файл ls-lR.gz из Чили и с Яндекса. Снимите два дампа для каждого скачивания. Проанализируйте скорость скачивания и посмотрите tcptrace. Прикиньте средний RTT и поищите максимальный RWND для скачивающего.
+представлены зеркала с образами Убунту по странам.
+
+Скачайте файл ls-lR.gz из Чили и с Яндекса.
+
+Снимите два дампа для каждого скачивания.
+
+Проанализируйте скорость скачивания и посмотрите tcptrace. Прикиньте средний RTT и поищите максимальный RWND для скачивающего.
 Предоставить скриншоты графиков скорости и tcptrace. Есть ли разница? В чем она?
+
+### Чили в папке [Chili](./Chili/) [dump-chili](./Chili/dump-chili.pcapng)
+
+IP range details 146.83.205.0/24
+Red Universitaria Nacional
+address Jose Domingo Cañas, 2819, Ñuñoa
+Country Chile
+
+Файл скачался за 20 секунд.
+
+tcptrace
+![tcptrace](./Chili/tcptrace.png)
+
+RTT
+![rtt](./Chili/round-trip-time.png)
+
+RWND
+![rwnd](./Chili/window.png)
+
+пропускная способность
+![troughput](./Chili/troughput.png)
+
+### Яндекс в папке [Yandex](./Yandex/) [dump-yandex](./Yandex/dump-yandex.pcapng)
+
+Все время получался дамп, который было невозможно проанализировать, там не было Яндекса, он непонятно куда девался.
+Пришлось даже силком узнать IP страницы скачивания
+
+![yandex-ip-address](./Yandex/yandex-ip-address.png)
+
+но это не помогло.
+Wireshark не видела и не ловила трафик.
+
+Я потратила очень много времени, пока догадалась, что в
+Statictics -> Conversations
+надо искать скачанные мегатайты на во вкладке IPv4, а во вкладке IPv6.
+
+![IPv6](./Yandex/IPv6.png)
+
+Файл скачался меньше, чем за 5 секунд.
+
+tcptrace
+
+![tcptrace](./Yandex/tcptrace.png)
+
+RTT
+
+![RTT](./Yandex/round-trip-time.png)
+
+RWND
+
+![RWND](./Yandex/window.png)
+
+пропускная способность
+
+![throughput](./Yandex/throughput.png)
