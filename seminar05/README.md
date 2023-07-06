@@ -61,7 +61,21 @@ http.request.method == POST
 
 Для Яндекса были сильно меньше RTT и сильно больше RWND.
 
-### Чили в папке [Chili](./Chili/) [dump-chili](./Chili/dump-chili.pcapng)
+#### Анализ в Wiresharke
+
+**Statictics -> Conversations**
+
+Находим мегабайты трафика и ищем с какого адреса.
+
+Фильтруем по нему.
+
+**Right Click -> Apply as Filter -> Selected -> A-B** (или что нужно)
+
+Для уже отфильтрованного выводим статистику
+
+**Statictics -> TCP Stream Graphs -> Time Sequence (tcptrace)** (или что нужно)
+
+### Чили в папке [Chili](./Chili/)
 
 IP range details 146.83.205.0/24
 
@@ -85,7 +99,7 @@ RWND
 пропускная способность
 ![troughput](./Chili/troughput.png)
 
-### Яндекс в папке [Yandex](./Yandex/) [dump-yandex](./Yandex/dump-yandex.pcapng)
+### Яндекс в папке [Yandex](./Yandex/)
 
 Все время получался дамп, который было невозможно проанализировать,
 
