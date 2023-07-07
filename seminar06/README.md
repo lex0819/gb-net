@@ -33,7 +33,7 @@ encode('utf-8')
 
 (тоже пришлите скриншот именно сокетов вашего чата)
 
-![netstat](./img/netstat.png)
+![netstat](./img/term-netstat.png)
 
 ## Перехватите трафик своего чата в Wireshark и cшейте сессию.
 
