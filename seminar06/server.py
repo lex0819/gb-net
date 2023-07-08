@@ -3,7 +3,7 @@ import socket
 import threading
 
 # Connection Data
-host = 'ENTER YOUR IP'
+host = '192.168.139.124'
 port = 55555
 
 # Starting Server
@@ -27,6 +27,7 @@ def handle(client):
             # Broadcasting Messages
             message = client.recv(1024)
             broadcast(message)
+
         except:
             # Removing And Closing Clients
             index = clients.index(client)

@@ -1,12 +1,15 @@
 import socket
 import threading
 
+# Enter server's IP-address
+serverip = input("Enter IP-address of server: ")
+
 # Choosing Nickname
 nickname = input("Choose your nickname: ")
 
 # Connecting To Server
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect(('192.168.139.124', 55555))
+client.connect((serverip, 55555))
 
 # Listening to Server and Sending Nickname
 def receive():
@@ -21,7 +24,7 @@ def receive():
                 print(message)
         except:
             # Close Connection When Error
-            print("An error occured!")
+            print("An error occurred!")
             client.close()
             break
 
