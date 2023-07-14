@@ -14,9 +14,23 @@ Office 4 - cеть 192.168.145.0/24
 
 Server0 должен предоставлять HTTP по 80му порту, а Server1 должен предоставлять HTTPS по 443 порту. Странички должны быть разные.
 
+```bash
+Router(config)#ip nat inside source static tcp 172.16.0.100 80 8.8.8.2 80
+Router(config)#ip nat inside source static tcp 172.16.0.101 443 8.8.8.2 443
+```
+
+См. весь лог CLI в файле [/logs/Router3.sh](./logs/Router3.sh)
+
 ## Задача 2. Настроить PAT в Office 3 для компьютеров,
 
 чтобы они выходили в интернет под одним публичным IP адресом на Router1.
+
+```bash
+Router(config)#ip access-list standard NET_172.16.0.0/16
+Router(config-)#permit 172.16.0.0 0.0.255.255
+```
+
+См. весь лог CLI в файле [/logs/Router1.sh](./logs/Router1.sh)
 
 Предоставить скриншот открытых страниц по HTTP и HTTPS по публичному адресу Router3 в веб-браузере клиентов Office3 (с РС1 и РС0)
 

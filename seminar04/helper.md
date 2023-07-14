@@ -35,6 +35,25 @@ network 1.1.1.0 0.0.0.255 area 0
 
 - включение сети 1.1.1.0/24 в OSPF процесс в area 0 (соответственно и интерфейс из этой сети включается в процесс OSPF)
 
+```bash
+Router(config)#router ?
+  bgp    Border Gateway Protocol (BGP)
+  eigrp  Enhanced Interior Gateway Routing Protocol (EIGRP)
+  ospf   Open Shortest Path First (OSPF)
+  rip    Routing Information Protocol (RIP)
+Router(config)#router ospf ?
+  <1-65535>  Process ID
+Router(config)#router ospf 1
+Router(config-router)#ne
+Router(config-router)#network ?
+  A.B.C.D  Network number
+Router(config-router)#network 7.7.7.0 0.0.0.3
+% Incomplete command.
+Router(config-router)#network 7.7.7.0 0.0.0.3 area 0
+Router(config-router)#ex
+Router(config)#
+```
+
 ### Команды для show:
 
 **show ip ospf int** (brief) - просмотр интерфейсов, включенных в OSPF процесс
