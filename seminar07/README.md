@@ -110,6 +110,25 @@ root@1728999-cs05976:~#
 
 ![Moscow](./img/Moscow.png)
 
+Трейсер до голландского сайта
+
+```bash
+➜  ~ traceroute www.amsterdam.nl
+traceroute: Warning: www.amsterdam.nl has multiple addresses; using 172.67.15.22
+traceroute to www.amsterdam.nl.cdn.cloudflare.net (172.67.15.22), 64 hops max, 52 byte packets
+ 1  unifi (192.168.0.1)  2.979 ms  3.057 ms  2.242 ms
+ 2  172.16.0.1 (172.16.0.1)  2.572 ms  3.193 ms  13.951 ms
+ 3  185.145.124.129 (185.145.124.129)  3.162 ms  2.717 ms  3.042 ms
+ 4  172.31.253.1 (172.31.253.1)  4.628 ms  4.850 ms  4.194 ms
+ 5  172.31.255.1 (172.31.255.1)  3.311 ms  3.516 ms  3.251 ms
+ 6  31.28.19.100 (31.28.19.100)  3.293 ms  22.325 ms  5.951 ms
+ 7  10.10.13.153 (10.10.13.153)  32.985 ms  10.959 ms  10.840 ms
+ 8  * * *
+ 9  * * *
+10  172.67.15.22 (172.67.15.22)  16.714 ms * *
+➜  ~
+```
+
 Включили VPN
 
 ![OpenVPN_connect](./img/OpenVPN_connect.png)
@@ -117,3 +136,19 @@ root@1728999-cs05976:~#
 Скрин с сайта **https://2ip.ru/**
 
 ![Amsterdam](./img/Amsterdam.png)
+
+Трейсер до голландского сайта
+
+```bash
+➜  ~ traceroute www.amsterdam.nl
+traceroute: Warning: www.amsterdam.nl has multiple addresses; using 104.22.4.8
+traceroute to www.amsterdam.nl.cdn.cloudflare.net (104.22.4.8), 64 hops max, 52 byte packets
+ 1  172.27.232.1 (172.27.232.1)  52.022 ms  50.585 ms *
+ 2  * * *
+ 3  5.39.223.251 (5.39.223.251)  53.233 ms
+    5.39.223.253 (5.39.223.253)  51.746 ms  64.081 ms
+ 4  * * 5.39.223.253 (5.39.223.253)  55.484 ms
+ 5  * 141.101.65.2 (141.101.65.2)  66.589 ms *
+ 6  * 104.22.4.8 (104.22.4.8)  58.304 ms *
+➜  ~
+```
