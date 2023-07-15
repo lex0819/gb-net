@@ -306,3 +306,5 @@ traceroute to www.amsterdam.nl.cdn.cloudflare.net (104.22.4.8), 64 hops max, 52 
  6  * 104.22.4.8 (104.22.4.8)  58.304 ms *
 ➜  ~
 ```
+
+Даже версия мак оси понизилась.
