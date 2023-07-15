@@ -75,6 +75,8 @@ Router#
 
 В туннелях публичные нельзя!
 
+Пример настройки туннеля на ройтере 7 с сервером 1.
+
 ```bash
 Router>en
 Router#sh run
@@ -154,6 +156,8 @@ Router#
 
 См. логи CLI с роутеров офиса 1 и офиса 4
 
+с настройкой GRE туннеля.
+
 [для офиса 1 Router0-GRE](./logs/Router0-GRE.log)
 
 [для офиса 4 Router7-GRE](./logs/Router7-GRE.log)
@@ -165,6 +169,16 @@ Router#
 Заходим с Laptop1 на Server2
 
 ![browser-GRE](./img/browser-GRE.png)
+
+Для компьютеров из офиса 1 настроила nat со списком всей сети,
+
+чтобы они могли ходить в интернет, на сервера 8.8.8.1
+
+![NAT-officce1-http](./img/NAT-officce1-http.png)
+
+![NAT-office1-https](./img/NAT-office1-https.png)
+
+Cм. лог CLI с роутера 0 [logs/Router0.sh](./logs/Router0.sh)
 
 ## Задача 4. Доделать OpenVPN (или Wireguard) если не успели.
 
