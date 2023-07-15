@@ -15,8 +15,8 @@ Office 4 - cеть 192.168.145.0/24
 Server0 должен предоставлять HTTP по 80му порту, а Server1 должен предоставлять HTTPS по 443 порту. Странички должны быть разные.
 
 ```bash
-Router(config)#ip nat inside source static tcp 172.16.0.100 80 8.8.8.2 80
-Router(config)#ip nat inside source static tcp 172.16.0.101 443 8.8.8.2 443
+Router(config)#ip nat inside source static tcp 10.0.1.100 80 8.8.8.1 80
+Router(config)#ip nat inside source static tcp 10.0.1.101 443 8.8.8.1 443
 ```
 
 См. весь лог CLI в файле [/logs/Router3.sh](./logs/Router3.sh)
@@ -34,7 +34,36 @@ Router(config-)#permit 172.16.0.0 0.0.255.255
 
 Предоставить скриншот открытых страниц по HTTP и HTTPS по публичному адресу Router3 в веб-браузере клиентов Office3 (с РС1 и РС0)
 
+Заходим с обоих компьютеров Офиса 3 на сервер 0, который слушает 80-й порт и отдает http.
+
+![PC0-HTTP](./img/PC0-HTTP.png)
+
+![PC1-HTTP](./img/PC1-HTTP.png)
+
+Заходим с обоих компьютеров Офиса 3 на сервер 1, который слушает 443-й порт и отдает https.
+
+![PC0-HTTPS](./img/PC0-HTTPS.png)
+
+![img/PC1-HTTPS](./img/PC1-HTTPS.png)
+
 После чего предоставить вывод show ip nat translation c Router1.
+
+```bash
+Router>en
+Router#sh ip nat ?
+  statistics    Translation statistics
+  translations  Translation entries
+Router#sh ip nat tr
+Router#sh ip nat translations
+Pro  Inside global     Inside local       Outside local      Outside global
+tcp 6.6.6.1:1024       172.16.0.11:1025   8.8.8.1:80         8.8.8.1:80
+tcp 6.6.6.1:1025       172.16.0.10:1025   8.8.8.1:80         8.8.8.1:80
+tcp 6.6.6.1:1026       172.16.0.10:1026   8.8.8.1:443        8.8.8.1:443
+tcp 6.6.6.1:1027       172.16.0.10:1027   8.8.8.1:443        8.8.8.1:443
+tcp 6.6.6.1:1028       172.16.0.11:1026   8.8.8.1:443        8.8.8.1:443
+
+Router#
+```
 
 ## Задача 3. Связать сети Office 1 и Office 4 с помощью GRE.
 
