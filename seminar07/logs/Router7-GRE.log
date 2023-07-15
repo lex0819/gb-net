@@ -1,0 +1,139 @@
+Router>en
+Router#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#int
+Router(config)#interface ?
+  Dialer            Dialer interface
+  Dot11Radio        Dot11 interface
+  Ethernet          IEEE 802.3
+  FastEthernet      FastEthernet IEEE 802.3
+  GigabitEthernet   GigabitEthernet IEEE 802.3z
+  Loopback          Loopback interface
+  Port-channel      Ethernet Channel of interfaces
+  Serial            Serial
+  Tunnel            Tunnel interface
+  Virtual-Template  Virtual Template interface
+  Vlan              Catalyst Vlans
+  range             interface range command
+Router(config)#interface Tun
+Router(config)#interface Tunnel 333
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface Tunnel333, changed state to up
+
+Router(config-if)#
+Router(config-if)#ip ad
+Router(config-if)#ip address 172.16.0.2 255.255.255.0
+Router(config-if)#
+Router(config-if)#tun
+Router(config-if)#tunnel sou
+Router(config-if)#tunnel source ?
+  Ethernet         IEEE 802.3
+  FastEthernet     FastEthernet IEEE 802.3
+  GigabitEthernet  GigabitEthernet IEEE 802.3z
+  Loopback         Loopback interface
+  Serial           Serial
+Router(config-if)#tunnel source gig
+Router(config-if)#tunnel source gigabitEthernet 0/3/0
+Router(config-if)#
+Router(config-if)#tun
+Router(config-if)#tunnel des
+Router(config-if)#tunnel destination ?
+  A.B.C.D  ip address
+Router(config-if)#tunnel destination 5.5.5.1
+Router(config-if)#
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Tunnel333, changed state to up
+
+Router(config-if)#
+Router(config-if)#ex
+Router(config)#do wr
+Building configuration...
+[OK]
+Router(config)#
+Router(config)#ip route ?
+  A.B.C.D  Destination prefix
+Router(config)#ip route 10.1.1.0 255.255.255.0 ?
+  A.B.C.D          Forwarding router's address
+  Dialer           Dialer interface
+  Ethernet         IEEE 802.3
+  FastEthernet     FastEthernet IEEE 802.3
+  GigabitEthernet  GigabitEthernet IEEE 802.3z
+  Loopback         Loopback interface
+  Null             Null interface
+  Serial           Serial
+  Vlan             Catalyst Vlans
+Router(config)#ip route 10.1.1.0 255.255.255.0 172.16.0.1
+Router(config)#
+Router(config)#do sh ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     5.0.0.0/24 is subnetted, 1 subnets
+O       5.5.5.0/24 [110/2] via 7.7.7.2, 00:23:34, GigabitEthernet0/3/0
+     6.0.0.0/24 is subnetted, 1 subnets
+O       6.6.6.0/24 [110/2] via 7.7.7.2, 00:23:34, GigabitEthernet0/3/0
+     7.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+C       7.7.7.0/24 is directly connected, GigabitEthernet0/3/0
+L       7.7.7.1/32 is directly connected, GigabitEthernet0/3/0
+     8.0.0.0/24 is subnetted, 1 subnets
+O       8.8.8.0/24 [110/2] via 7.7.7.2, 00:23:34, GigabitEthernet0/3/0
+     10.0.0.0/24 is subnetted, 1 subnets
+S       10.1.1.0/24 [1/0] via 172.16.0.1
+     172.16.0.0/16 is variably subnetted, 2 subnets, 2 masks
+C       172.16.0.0/24 is directly connected, Tunnel333
+L       172.16.0.2/32 is directly connected, Tunnel333
+     192.168.145.0/24 is variably subnetted, 2 subnets, 2 masks
+C       192.168.145.0/24 is directly connected, GigabitEthernet0/0
+L       192.168.145.1/32 is directly connected, GigabitEthernet0/0
+
+Router(config)#
+Router(config)#do wr
+Building configuration...
+[OK]
+Router(config)#
+Router(config)#ex
+Router#
+%SYS-5-CONFIG_I: Configured from console by console
+
+Router#sh int tu 333
+Tunnel333 is up, line protocol is up (connected)
+  Hardware is Tunnel
+  Internet address is 172.16.0.2/24
+  MTU 17916 bytes, BW 100 Kbit/sec, DLY 50000 usec,
+     reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation TUNNEL, loopback not set
+  Keepalive not set
+  Tunnel source 7.7.7.1 (GigabitEthernet0/3/0), destination 5.5.5.1
+  Tunnel protocol/transport GRE/IP
+    Key disabled, sequencing disabled
+    Checksumming of packets disabled
+  Tunnel TTL 255
+  Fast tunneling enabled
+  Tunnel transport MTU 1476 bytes
+  Tunnel transmit bandwidth 8000 (kbps)
+  Tunnel receive bandwidth 8000 (kbps)
+  Last input never, output never, output hang never
+  Last clearing of "show interface" counters never
+  Input queue: 0/75/0/0 (size/max/drops/flushes); Total output drops: 1
+  Queueing strategy: fifo
+  Output queue: 0/0 (size/max)
+  5 minute input rate 0 bits/sec, 0 packets/sec
+  5 minute output rate 0 bits/sec, 0 packets/sec
+     0 packets input, 0 bytes, 0 no buffer
+     Received 0 broadcasts, 0 runts, 0 giants, 0 throttles
+     0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored, 0 abort
+     0 input packets with dribble condition detected
+     0 packets output, 0 bytes, 0 underruns
+     0 output errors, 0 collisions, 0 interface resets
+      0 unknown protocol drops
+     0 output buffer failures, 0 output buffers swapped out
+
+Router#
+Router#

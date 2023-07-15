@@ -67,7 +67,104 @@ Router#
 
 ## Задача 3. Связать сети Office 1 и Office 4 с помощью GRE.
 
-Предоставит трейс с Laptop0 до Server2.
+Сделаем туннельную сеть между офисами 172.16.0.0/24
+
+с концами 172.16.0.1 и 172.16.0.2
+
+Мы ограничены только приватными адресами.
+
+В туннелях публичные нельзя!
+
+```bash
+Router>en
+Router#sh run
+Building configuration...
+
+Current configuration : 1073 bytes
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Router
+!
+ip cef
+no ipv6 cef
+!
+license udi pid CISCO2911/K9 sn FTX1524DLV2-
+!
+!
+spanning-tree mode pvst
+!
+!
+interface Tunnel333
+ ip address 172.16.0.2 255.255.255.0
+ mtu 1476
+ tunnel source GigabitEthernet0/3/0
+ tunnel destination 5.5.5.1
+!
+!
+interface GigabitEthernet0/0
+ ip address 192.168.145.1 255.255.255.0
+ ip nat inside
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface GigabitEthernet0/3/0
+ ip address 7.7.7.1 255.255.255.0
+ ip nat outside
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 1
+ router-id 7.7.7.7
+ log-adjacency-changes
+ network 7.7.7.0 0.0.0.255 area 0
+!
+ip classless
+ip route 10.1.1.0 255.255.255.0 172.16.0.1
+!
+ip flow-export version 9
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+end
+Router#
+```
+
+См. логи CLI с роутеров офиса 1 и офиса 4
+
+[для офиса 1 Router0-GRE](./logs/Router0-GRE.log)
+
+[для офиса 4 Router7-GRE](./logs/Router7-GRE.log)
+
+Предоставить трейс с Laptop0 до Server2.
+
+![tracert-tunnel](./img/tracert-tunnel.png)
+
+Заходим с Laptop1 на Server2
+
+![browser-GRE](./img/browser-GRE.png)
 
 ## Задача 4. Доделать OpenVPN (или Wireguard) если не успели.
 
