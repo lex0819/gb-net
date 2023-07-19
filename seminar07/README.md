@@ -25,9 +25,31 @@ Router(config)#ip nat inside source static tcp 10.0.1.101 443 8.8.8.1 443
 
 чтобы они выходили в интернет под одним публичным IP адресом на Router1.
 
+Интерфейс указывать внешний, с публичным адресом
+в команде **ip nat inside source**
+
 ```bash
+Router(config)#ip ac
+Router(config)#ip access-list ?
+  extended  Extended Access List
+  standard  Standard Access List
 Router(config)#ip access-list standard NET_172.16.0.0/16
-Router(config-)#permit 172.16.0.0 0.0.255.255
+Router(config-std-nacl)#permit ?
+  A.B.C.D  Address to match
+  any      Any source host
+  host     A single host address
+Router(config-std-nacl)#permit 172.16.0.0 0.0.255.255
+Router(config-std-nacl)#
+Router(config-std-nacl)#ex
+Router(config)#do wr
+Building configuration...
+[OK]
+Router(config)#
+Router(config)#ip nat inside source ?
+  list    Specify access list describing local addresses
+  static  Specify static local->global mapping
+Router(config)#ip nat inside source list NET_172.16.0.0/16 interface gigabitEthernet 0/0/0 overload
+Router(config)#
 ```
 
 См. весь лог CLI в файле [/logs/Router1.sh](./logs/Router1.sh)

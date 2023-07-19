@@ -115,16 +115,90 @@ _/usr/local/openvpn_as/scripts/sacli start_
 
 (https://disk.yandex.ru/d/Vaxkf2X0RG9NGw .)
 
-Сымитировать "Интернет" с помощью OSPF. Приватных сетей в маршрутизации быть не должно.
+### Сымитировать "Интернет" с помощью OSPF.
 
-Для компьютеров из Office 1 предоставить доступ в "Интернет" с помощью PAT.
+Приватных сетей в маршрутизации быть не должно.
 
-Открыть доступ из "Интернета" к серверам из Office 2 c помощью Port Forwarding.
+```bash
+router ospf 1
+ router-id 1.1.1.0
+ log-adjacency-changes
+ network 11.22.33.0 0.0.0.127 area 0
+ network 11.22.34.0 0.0.0.255 area 0
+ network 11.22.33.128 0.0.0.127 area 0
+```
 
-Для компьютеров из Office 1 должны открываться разные сайты по HTTP и HTTPS из Office 2 по одному доменному имени.
+См. все логи CLI со всех роутеров в папке [/logs/](./logs/)
+
+### Для компьютеров из Office 1 предоставить доступ в "Интернет"
+
+с помощью PAT.
+
+```bash
+!
+ip nat inside source list net192 interface GigabitEthernet0/0/0 overload
+ip classless
+!
+ip flow-export version 9
+!
+!
+ip access-list standard net192
+ permit 192.168.0.0 0.0.0.255
+!
+```
+
+См. лог CLI Router3 в файле [/logs/Router3-comp.sh](./logs/Router3-comp.sh)
+
+### Открыть доступ из "Интернета" к серверам из Office 2
+
+c помощью Port Forwarding.
+
+```bash
+
+```
+
+См. лог CLI Router1 в файле [/logs/Router1-serv.sh](./logs/Router1-serv.sh)
+
+### Для компьютеров из Office 1 должны открываться разные сайты по HTTP и HTTPS из Office 2 по одному доменному имени.
+
+![http](./img/http.png)
 
 Предоставить скриншоты открытых разных сайтов по одному доменному имени.
 
-Предоставить скриншот таблицы NAT трансляций с Router3.
+![https](./img/https.png)
 
-Предоставить скриншот таблицы маршрутизации с Router0.
+### Предоставить скриншот таблицы NAT трансляций с Router3.
+
+```bash
+Router>en
+Router#sh ip nat tr
+Router#sh ip nat translations
+Pro  Inside global     Inside local       Outside local      Outside global
+udp 11.22.33.1:1025    192.168.0.10:1025  8.8.8.8:53         8.8.8.8:53
+udp 11.22.33.1:1026    192.168.0.11:1026  8.8.8.8:53         8.8.8.8:53
+udp 11.22.33.1:1027    192.168.0.11:1027  8.8.8.8:53         8.8.8.8:53
+tcp 11.22.33.1:1024    192.168.0.10:1025  11.22.34.1:80      11.22.34.1:80
+tcp 11.22.33.1:1025    192.168.0.11:1025  11.22.34.1:80      11.22.34.1:80
+tcp 11.22.33.1:1026    192.168.0.11:1026  11.22.34.1:80      11.22.34.1:80
+tcp 11.22.33.1:1027    192.168.0.11:1027  11.22.34.1:443     11.22.34.1:443
+
+Router#
+```
+
+![NAT-Router3](./img/NAT-Router3.png)
+
+### Предоставить скриншот таблицы маршрутизации с Router0.
+
+```bash
+Router#sh ip nat translations
+Pro  Inside global     Inside local       Outside local      Outside global
+tcp 11.22.34.1:443     10.0.0.101:443     ---                ---
+tcp 11.22.34.1:443     10.0.0.101:443     11.22.33.1:1027    11.22.33.1:1027
+tcp 11.22.34.1:80      10.0.0.100:80      ---                ---
+tcp 11.22.34.1:80      10.0.0.100:80      11.22.33.1:1024    11.22.33.1:1024
+tcp 11.22.34.1:80      10.0.0.100:80      11.22.33.1:1026    11.22.33.1:1026
+
+Router#
+```
+
+![NAT-Router0](./img/NAT-Router0.png)
