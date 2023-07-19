@@ -154,7 +154,8 @@ ip access-list standard net192
 c помощью Port Forwarding.
 
 ```bash
-
+ip nat inside source static tcp 10.0.0.100 80 11.22.34.1 80
+ip nat inside source static tcp 10.0.0.101 443 11.22.34.1 443
 ```
 
 См. лог CLI Router1 в файле [/logs/Router1-serv.sh](./logs/Router1-serv.sh)
