@@ -1,5 +1,7 @@
 # Урок 8. Основы HTTP/HTTPS и DNS
 
+How to get source-code of remote page see in [help.txt](./help.txt)
+
 ## Доделать свой сертификат
 
 На timeweb.ru куплен облачный сервер.
